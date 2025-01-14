@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <operation>
+        20-2+3
+    </operation>
+    <operation>
+        30*20-4/2-100
+    </operation>
+</root>
