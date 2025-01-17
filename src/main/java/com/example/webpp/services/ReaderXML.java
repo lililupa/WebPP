@@ -16,26 +16,20 @@ import java.io.*;
 public class ReaderXML {
     String path = "src/main/resources/in.xml";
 
-    public void parseXML(String xml) {
-//    ObjectMapper objectMapper = new ObjectMapper();
-//    try {
-//        Root readValue = objectMapper.readValue(xml, Root.class);
-//        System.out.println();
-//    } catch (JsonProcessingException e) {
-//        throw new RuntimeException(e);
-//    }
-
-
+    public void parseXML() {
         try {
-
+            File xmlFile = new File("C:\\Users\\I\\IdeaProjects\\WebPP\\src\\main\\resources\\in.xml");
             JAXBContext context = JAXBContext.newInstance(Root.class);
-            Unmarshaller m = context.createUnmarshaller();
-            Object reader = m.unmarshal(new StringReader(xml));
-            StringWriter writer = new StringWriter();
+            Unmarshaller unmarshaller = context.createUnmarshaller();
 
+            Root root = (Root) unmarshaller.unmarshal(xmlFile);
+            for (String operation : root.getOperations()) {
+                System.out.println(operation);
+            }
         } catch (JAXBException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+
     }
 
     public String readFromInputStream() {
@@ -52,8 +46,25 @@ public class ReaderXML {
             System.out.println(e.getStackTrace());
         }
         System.out.println(resultStringBuilder);
-        parseXML(resultStringBuilder.toString());
         return resultStringBuilder.toString();
     }
+
+//    public String readFromInputStream() {
+//
+//        StringBuilder resultStringBuilder = new StringBuilder();
+//        try (InputStream inputStream = new FileInputStream(path);
+//             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                resultStringBuilder.append(line).append("\n");
+//            }
+//
+//        } catch (IOException e) {
+//            System.out.println(e.getStackTrace());
+//        }
+//        System.out.println(resultStringBuilder);
+//        parseXML(resultStringBuilder.toString());
+//        return resultStringBuilder.toString();
+//    }
 
 }
