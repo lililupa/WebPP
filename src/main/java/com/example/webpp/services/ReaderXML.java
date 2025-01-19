@@ -14,18 +14,31 @@ import java.io.*;
 @Service
 
 public class ReaderXML {
-    String path = "src/main/resources/in.xml";
+String path1 = "src/main/resources/in.xml";
+    public void parseXML(String path) {
 
-    public void parseXML() {
         try {
-            File xmlFile = new File("C:\\Users\\I\\IdeaProjects\\WebPP\\src\\main\\resources\\in.xml");
+
+            File xmlFile = new File(path);
             JAXBContext context = JAXBContext.newInstance(Root.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             Root root = (Root) unmarshaller.unmarshal(xmlFile);
-            for (String operation : root.getOperations()) {
-                System.out.println(operation);
+            try {
+
+                FileWriter writer = new FileWriter("src/main/resources/fromxml.txt", false);
+                for (String operation : root.getOperations()) {
+                    System.out.println(operation);
+                    writer.write(operation+ "\n");
+
+
+                }
+                writer.flush();
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
             }
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -35,7 +48,7 @@ public class ReaderXML {
     public String readFromInputStream() {
 
         StringBuilder resultStringBuilder = new StringBuilder();
-        try (InputStream inputStream = new FileInputStream(path);
+        try (InputStream inputStream = new FileInputStream(path1);
              BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -48,23 +61,4 @@ public class ReaderXML {
         System.out.println(resultStringBuilder);
         return resultStringBuilder.toString();
     }
-
-//    public String readFromInputStream() {
-//
-//        StringBuilder resultStringBuilder = new StringBuilder();
-//        try (InputStream inputStream = new FileInputStream(path);
-//             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                resultStringBuilder.append(line).append("\n");
-//            }
-//
-//        } catch (IOException e) {
-//            System.out.println(e.getStackTrace());
-//        }
-//        System.out.println(resultStringBuilder);
-//        parseXML(resultStringBuilder.toString());
-//        return resultStringBuilder.toString();
-//    }
-
 }

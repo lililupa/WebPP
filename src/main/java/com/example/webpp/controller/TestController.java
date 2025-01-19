@@ -15,14 +15,14 @@ public class TestController {
         this.readerJSON = readerJSON;
     }
 
-    @GetMapping("/test")
-    public String test() {
-        readerXML.parseXML();
-        return "test";
-    }
-    @GetMapping("/json")
-    public String json() {
-        readerJSON.reader();
-        return "test";
-    }
+//    @GetMapping("/test")
+//    public String test() {
+//        readerXML.parseXML();
+//        return "test";
+//    }
+//    @GetMapping("/json")
+//    public String json() {
+//        readerJSON.reader();
+//        return "test";
+//    }
 }

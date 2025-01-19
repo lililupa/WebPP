@@ -118,11 +118,11 @@ public class CalculateFromTextFile {
         return calculate.pollLast().toString();
     }
 
-    public String transformInformationToFile() {
+    public String transformInformationToFile(String path) {
         BufferedReader reader = null;
         String s = "";
         try {
-            reader = new BufferedReader(new FileReader(pathIn));
+            reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
 
             s = s + line + "=";

@@ -9,24 +9,19 @@ import java.io.*;
 
 @Service
 public class ReaderJSON {
-    public String reader() {
-        String path = "C:\\Users\\I\\IdeaProjects\\WebPP\\src\\main\\resources\\in.json";
-//        StringBuilder resultStringBuilder = new StringBuilder();
-//        try (InputStream inputStream = new FileInputStream(path);
-//             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                resultStringBuilder.append(line).append("\n");
-//            }
-//
-//        } catch (IOException e) {
-//            System.out.println(e.getStackTrace());
-//        }
-//        System.out.println(resultStringBuilder);
+    public String reader(String path) {
+//        String path = "src/main/resources/in.json";
         ObjectMapper objectMapper = new ObjectMapper();
         try {
           RootJSON op =  objectMapper.readValue(new File(path), RootJSON.class);
             System.out.println(op);
+            FileWriter writer = new FileWriter("src/main/resources/fromJson.txt", false);
+
+            for (String s : op.getOperation()) {
+                    System.out.println(s);
+                    writer.write(s+ "\n");
+            }
+            writer.flush();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
 
